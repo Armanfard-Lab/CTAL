@@ -15,7 +15,7 @@ CTAL enhances task refinement in multitask learning (MTL) by capturing both loca
 
 To clone the repo and setup the environment, run:
 ```sh
-git clone https://github.com/Dimitri-Sinodinos/CTAL.git
+git clone https://github.com/Armanfard-Lab/CTAL.git
 cd CTAL
 conda env create -f environment.yml
 conda activate ctal
