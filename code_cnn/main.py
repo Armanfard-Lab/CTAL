@@ -10,15 +10,15 @@ os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 parser = argparse.ArgumentParser()
 
 # environment configurations
-parser.add_argument('--storage_root', default='C:\\Users\\dimme\\Cold\\MTL_Refine', type=str, help='path to storage (logs, checkpoints, etc.)')
+parser.add_argument('--storage_root', default='logs', type=str, help='path to storage (logs, checkpoints, etc.)')
 parser.add_argument('--load_checkpoint', default=None, type=str, help='path to load checkpoint model')
 parser.add_argument('--save_epoch', default=10, type=int, help='number of epochs to train before checkpointing')
 parser.add_argument('--seed', default=0, type=int, help='random seed for pytorch')
 parser.add_argument('--cuda', default='0', type=str, choices=['0','1','2', '3','4','5','6','7'], help='gpu index')
 parser.add_argument('--name', default='test', type=str, help='name of the run')
 parser.add_argument('--model_file', required=True, type=str, help='path to model config file')
-parser.add_argument('--augmentation', default=False, type=bool, help='apply augmentations')
-parser.add_argument('--grad_scaling', default=False, type=bool, help='apply gradient scaline')
+parser.add_argument('--augmentation', default=False, type=bool, help='apply data augmentations')
+parser.add_argument('--grad_scaling', default=False, type=bool, help='apply gradient scaling')
 
 def set_seeds(seed):
     import random

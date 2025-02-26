@@ -1,6 +1,6 @@
 import torch
 import yaml
-from easydict import EasyDict as edict
+from easydict import EasyDict as edict # type: ignore
 
 def create_config(args, model):
     cfg = edict()
@@ -75,7 +75,7 @@ def parse_task_dictionary(db_name, task_dictionary):
     if 'include_normals' in task_dictionary.keys() and task_dictionary['include_normals']:
         # Surface Normals 
         tmp = 'normals'
-        assert(db_name in ['PASCALContext', 'NYUD', 'nyuv2', 'cityscapes', 'pascal'])
+        assert(db_name in ['nyuv2', 'cityscapes'])
         task_cfg.NAMES.append(tmp)
         task_cfg.NUM_OUTPUT[tmp] = 3
 
@@ -83,17 +83,7 @@ def parse_task_dictionary(db_name, task_dictionary):
 
 
 def get_backbone(opt):
-    if opt.backbone == 'resnet34':
-        from models.resnet import resnet34
-        backbone = resnet34(opt['backbone_kwargs']['pretrained'])
-        backbone_channels = 512
-    
-    elif opt.backbone == 'resnet50':
-        from models.resnet import resnet50
-        backbone = resnet50(opt['backbone_kwargs']['pretrained'])
-        backbone_channels = 2048
-
-    elif opt.backbone == 'hrnet_w18':
+    if opt.backbone == 'hrnet_w18':
         from models.hrnet import hrnet_w18
         backbone = hrnet_w18(opt['backbone_kwargs']['pretrained'])
         backbone_channels = [18, 36, 72, 144]
@@ -109,12 +99,7 @@ def get_backbone(opt):
     return backbone, backbone_channels
 
 def get_backbone_dims(opt):
-    if opt.backbone == 'resnet34':
-        if opt.train_db_name == 'NYUD':
-            dims = [14,18]
-        else:
-            dims = [16,16]
-    elif opt.backbone == 'hrnet_w18':
+    if opt.backbone == 'hrnet_w18':
         dims = [opt.TRAIN.SCALE[0]//4, opt.TRAIN.SCALE[1]//4]
     else:
         raise NotImplementedError(f'{opt.backbone} not implimented')
@@ -168,16 +153,16 @@ def get_model(opt):
             from models.papnet import PAPNet
             model = PAPNet(opt, backbone, backbone_channels)
         
-        elif opt.model == 'emanet':
-            from models.emanet import EMANet
+        elif opt.model == 'ctal':
+            from models.ctal import CTALNet
             backbone_dims = get_backbone_dims(opt)
-            model = EMANet(opt, backbone, backbone_channels, backbone_dims)
+            model = CTALNet(opt, backbone, backbone_channels, backbone_dims)
         
-        elif opt.model == 'm_emanet':
-            from models.m_emanet import MEMANet
+        elif opt.model == 'm_ctal':
+            from models.m_ctal import MCTALNet
             backbone_dims = get_backbone_dims(opt)
             heads = torch.nn.ModuleDict({task: get_head(opt, backbone_channels, task) for task in opt.TASKS.NAMES})
-            model = MEMANet(opt, backbone, backbone_channels, backbone_dims, heads)
+            model = MCTALNet(opt, backbone, backbone_channels, backbone_dims, heads)
 
         elif opt.model == 'mti_net':
             from models.mti_net import MTINet
@@ -216,9 +201,9 @@ def get_criterion(opt):
         from losses.loss_schemes import PAPNetLoss
         return PAPNetLoss(opt.TASKS.NAMES, opt.TASKS.NAMES, loss_weighting)
 
-    elif opt['loss_kwargs']['loss_scheme'] == 'emanet':
-        from losses.loss_schemes import EMANetLoss
-        return EMANetLoss(opt.TASKS.NAMES, opt.TASKS.NAMES, loss_weighting)
+    elif opt['loss_kwargs']['loss_scheme'] == 'ctal':
+        from losses.loss_schemes import CTALLoss
+        return CTALLoss(opt.TASKS.NAMES, opt.TASKS.NAMES, loss_weighting)
     
     elif opt['loss_kwargs']['loss_scheme'] == 'mti_net':
         from losses.loss_schemes import MTINetLoss

@@ -2,15 +2,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-import csv
-import random
-from tqdm import tqdm
-from torchvision.models.feature_extraction import create_feature_extractor
-import torchvision.transforms as transforms
-from PIL import Image
+from tqdm import tqdm # type: ignore
 from evaluation.evaluate_utils import PerformanceMeter
 from torch.cuda.amp import GradScaler
-#import cv2
 
 """
 Define task metrics, loss functions and model trainer here.
@@ -81,18 +75,6 @@ def get_output(output, task):
         output = output.permute(0, 2, 3, 1)
         _, output = torch.max(output, dim=3)
 
-    elif task in {'human_parts'}:
-        output = output.permute(0, 2, 3, 1)
-        _, output = torch.max(output, dim=3)
-    
-    elif task in {'edge'}:
-        output = output.permute(0, 2, 3, 1)
-        output = torch.squeeze(255 * 1 / (1 + torch.exp(-output)), dim=3)
-
-    elif task in {'sal'}:
-        output = output.permute(0, 2, 3, 1)
-        output = F.softmax(output, dim=3)[:, :, :, 1] *255 # torch.squeeze(255 * 1 / (1 + torch.exp(-output)))
-    
     elif task in {'depth'}:
         output.clamp_(min=0.)
         output = output.permute(0, 2, 3, 1)
@@ -171,7 +153,7 @@ def multitask_trainer(train_loader, test_loader, model, device, opt):
 
         # checkpoint
         if opt.storage_root is not None and (index+1) % opt.save_epoch == 0:
-            path = f'{opt.storage_root}/{opt.model}/{opt.train_db_name}_{opt.name}_{index}.pth'
+            path = f'{opt.storage_root}/{opt.train_db_name}_{opt.model}_{opt.name}_{index}.pth'
             torch.save(model.state_dict(), path)
             print(f'Checkpoint saved to: {path}')
         
