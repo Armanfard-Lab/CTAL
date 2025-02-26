@@ -2,11 +2,11 @@
   <h1>Cross-Task Affinity Learning for Multitask Dense Scene Predictions</h1>
 </div>
 
-This is the official PyTorch implementation of the paper:  
-**"Cross-Task Affinity Learning for Multitask Dense Scene Predictions"** (WACV 2025).   
-![CTAL](CTAL.png)
+[![ArXiv](https://img.shields.io/badge/ArXiv-2401.11124-red)](http://arxiv.org/abs/2401.11124)
+[![CVF Open Access](https://img.shields.io/badge/CVF-WACV_2025-blue)](https://openaccess.thecvf.com/content/WACV2025/papers/Sinodinos_Cross-Task_Affinity_Learning_for_Multitask_Dense_Scene_Predictions_WACV_2025_paper.pdf)
 
-🔗 **[Preprint on arXiv](https://arxiv.org/abs/2401.11124)** 
+This is the official PyTorch implementation of the paper: **"Cross-Task Affinity Learning for Multitask Dense Scene Predictions"** (WACV 2025).   
+![CTAL](CTAL.png)
 
 CTAL enhances task refinement in multitask learning (MTL) by capturing both local and long-range cross-task interactions, improving performance for CNN and Transformer-based architectures.
 
@@ -15,7 +15,7 @@ CTAL enhances task refinement in multitask learning (MTL) by capturing both loca
 
 To clone the repo and setup the environment, run:
 ```sh
-git clone https://github.com/Armanfard-Lab/CTAL.git
+git clone https://github.com/Dimitri-Sinodinos/CTAL.git
 cd CTAL
 conda env create -f environment.yml
 conda activate ctal
@@ -56,14 +56,13 @@ We provide two implementations:
 ## **📚 Citation**
 If you use this code or find our work helpful, please cite:
 ```bibtex
-@misc{sinodinos2024crosstaskaffinitylearningmultitask,
-      title={Cross-Task Affinity Learning for Multitask Dense Scene Predictions}, 
-      author={Dimitrios Sinodinos and Narges Armanfard},
-      year={2024},
-      eprint={2401.11124},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2401.11124}, 
+@InProceedings{Sinodinos_2025_WACV,
+    author    = {Sinodinos, Dimitrios and Armanfard, Narges},
+    title     = {Cross-Task Affinity Learning for Multitask Dense Scene Predictions},
+    booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {February},
+    year      = {2025},
+    pages     = {1546-1555}
 }
 ```
 
