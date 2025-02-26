@@ -1,0 +1,40 @@
+# Setup
+setup: single_task
+
+# Database
+train_db_name: PASCALContext
+val_db_name: PASCALContext 
+trBatch: 2
+valBatch: 2
+nworkers: 4
+ignore_index: 255
+
+# Optimizer and scheduler
+epochs: 70
+optimizer: adam
+optimizer_kwargs:
+   lr: 0.00002
+   weight_decay: 0.00001
+scheduler: cosine
+grad_clip_param: {'max_norm': 10, 'norm_type': 2}
+
+# Model
+model: stl 
+backbone: swin_v2_s
+backbone_kwargs:
+   pretrained: True
+   dilated: False
+head: deeplab
+
+# Tasks
+task_dictionary:
+   include_semseg: True
+   include_normals: True
+   include_human_parts: True
+   include_sal: True
+   include_edge: True
+   edge_w: 0.95
+
+# Loss kwargs
+loss_kwargs:
+   loss_scheme: stl
