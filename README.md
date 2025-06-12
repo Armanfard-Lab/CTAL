@@ -3,7 +3,7 @@
 </div>
 
 [![ArXiv](https://img.shields.io/badge/ArXiv-2401.11124-red)](http://arxiv.org/abs/2401.11124)
-[![CVF Open Access](https://img.shields.io/badge/CVF-WACV_2025-blue)](https://openaccess.thecvf.com/content/WACV2025/papers/Sinodinos_Cross-Task_Affinity_Learning_for_Multitask_Dense_Scene_Predictions_WACV_2025_paper.pdf)
+[![IEEE](https://img.shields.io/badge/IEEE-WACV_2025-blue)](https://ieeexplore.ieee.org/abstract/document/10943529)
 
 This is the official PyTorch implementation of the paper: **"Cross-Task Affinity Learning for Multitask Dense Scene Predictions"** (WACV 2025).   
 ![CTAL](CTAL.png)
@@ -56,13 +56,16 @@ We provide two implementations:
 ## **📚 Citation**
 If you use this code or find our work helpful, please cite:
 ```bibtex
-@InProceedings{Sinodinos_2025_WACV,
-    author    = {Sinodinos, Dimitrios and Armanfard, Narges},
-    title     = {Cross-Task Affinity Learning for Multitask Dense Scene Predictions},
-    booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
-    month     = {February},
-    year      = {2025},
-    pages     = {1546-1555}
+@INPROCEEDINGS{10943529,
+  author={Sinodinos, Dimitrios and Armanfard, Narges},
+  booktitle={2025 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)}, 
+  title={Cross-Task Affinity Learning for Multitask Dense Scene Predictions}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1546-1555},
+  keywords={Computer vision;Refining;Computer architecture;Predictive models;Transformers;Multitasking;multitask learning;computer vision;dense scene predictions},
+  doi={10.1109/WACV61041.2025.00158}
 }
 ```
 
